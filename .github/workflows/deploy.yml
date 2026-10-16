@@ -1,0 +1,30 @@
+
+name: Publicar marcador de judo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar archivos
+        uses: actions/checkout@v4
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar publicación
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publicar marcador
+        uses: actions/deploy-pages@v4
